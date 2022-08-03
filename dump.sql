@@ -14,3 +14,9 @@ CREATE TABLE sessions(
   token TEXT NOT NULL,
   created_at TIMESTAMP NOT NULL DEFAULT NOW()
 );
+CREATE TABLE urls(
+  id SERIAL PRIMARY KEY,
+  url_link TEXT NOT NULL,
+  user_id INTEGER NOT NULL REFERENCES "users"("id"),
+  created_at TIMESTAMP NOT NULL DEFAULT NOW()
+);
