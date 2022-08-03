@@ -11,7 +11,7 @@ export async function authentication(req, res, next) {
 
   try {
     const { rows: user } = await connection.query(
-      `SELECT users.name, users.email FROM SESSIONS 
+      `SELECT users.name, users.email, users.id FROM SESSIONS 
       JOIN USERS ON sessions.user_id = users.id 
       WHERE sessions.token = $1`,
       [token]
@@ -21,7 +21,7 @@ export async function authentication(req, res, next) {
       return res.sendStatus(401);
     }
 
-    res.locals.user = user;
+    res.locals.user = user[0];
 
     next();
   } catch (error) {
