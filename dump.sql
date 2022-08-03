@@ -17,6 +17,8 @@ CREATE TABLE sessions(
 CREATE TABLE urls(
   id SERIAL PRIMARY KEY,
   url_link TEXT NOT NULL,
+  short_url_link VARCHAR(10) NOT NULL,
+  visit_count INTEGER NOT NULL DEFAULT 0,
   user_id INTEGER NOT NULL REFERENCES "users"("id"),
   created_at TIMESTAMP NOT NULL DEFAULT NOW()
 );
