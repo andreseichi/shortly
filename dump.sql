@@ -10,7 +10,7 @@ VALUES('test', 'teste@teste.com', 'password'),
   ('test2', 'teste2@teste.com', 'password2');
 CREATE TABLE sessions(
   id SERIAL PRIMARY KEY,
-  user_id INTEGER NOT NULL,
+  user_id INTEGER NOT NULL REFERENCES "users"("id"),
   token TEXT NOT NULL,
   created_at TIMESTAMP NOT NULL DEFAULT NOW()
 );
