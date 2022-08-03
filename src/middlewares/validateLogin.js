@@ -37,7 +37,13 @@ export async function validateLogin(req, res, next) {
           'UPDATE sessions SET token = $1, created_at = $2 WHERE user_id = $3',
           [token, new Date(), userDB.id]
         );
+      } else {
+        await connection.query(
+          'INSERT INTO sessions (user_id, token, created_at) VALUES ($1, $2, $3)',
+          [userDB.id, token, new Date()]
+        );
       }
+
       const user = {
         token,
         name: userDB.name,
