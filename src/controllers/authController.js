@@ -19,3 +19,9 @@ export async function createUser(req, res) {
     return res.status(500).send(error);
   }
 }
+
+export async function signIn(req, res) {
+  const { user } = res.locals;
+
+  return res.send({ token: user.token, name: user.name });
+}
