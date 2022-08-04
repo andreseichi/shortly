@@ -50,3 +50,20 @@ export async function getUrlById(req, res) {
     return res.status(500).send(error);
   }
 }
+
+export async function redirectToUrl(req, res) {
+  const { shortUrl } = res.locals;
+  const { url } = res.locals;
+
+  try {
+    await connection.query(
+      'UPDATE urls SET visit_count = visit_count + 1 WHERE short_url_link = $1',
+      [shortUrl]
+    );
+
+    return res.redirect(url);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).send(error);
+  }
+}
