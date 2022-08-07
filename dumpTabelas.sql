@@ -1,0 +1,22 @@
+CREATE DATABASE "shortly";
+CREATE TABLE users(
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(120) NOT NULL,
+  email TEXT NOT NULL,
+  password TEXT NOT NULL,
+  created_at TIMESTAMP NOT NULL DEFAULT NOW()
+);
+CREATE TABLE sessions(
+  id SERIAL PRIMARY KEY,
+  user_id INTEGER NOT NULL REFERENCES "users"("id"),
+  token TEXT NOT NULL,
+  created_at TIMESTAMP NOT NULL DEFAULT NOW()
+);
+CREATE TABLE urls(
+  id SERIAL PRIMARY KEY,
+  url_link TEXT NOT NULL,
+  short_url_link VARCHAR(10) NOT NULL,
+  visit_count INTEGER NOT NULL DEFAULT 0,
+  user_id INTEGER NOT NULL REFERENCES "users"("id"),
+  created_at TIMESTAMP NOT NULL DEFAULT NOW()
+);
